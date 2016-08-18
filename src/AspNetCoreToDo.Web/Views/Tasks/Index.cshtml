@@ -1,0 +1,66 @@
+﻿@model AspNetCoreToDo.Web.ViewModels.Tasks.TasksIndexViewModel
+@{
+    ViewBag.Title = "Tasks";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (Model.ShowNotificationMessage)
+{
+    <p class="alert alert-success">@Model.NotificationMessage</p>
+}
+
+<div class="jumbotron">
+    <div class="container">
+        <form asp-controller="Tasks" asp-action="Index" method="get" class="form-horizontal" role="form">
+            <div>
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId"
+                        asp-items="Model.CategoryOptions">
+                    <option>Any category</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-default">Filter tasks &raquo;</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<p>
+    <a asp-controller="Tasks" asp-action="Add" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>Task</th>
+        <th>Category</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                <form asp-controller="Tasks" asp-action="UpdateStatus" method="post" role="form">
+                    <input type="checkbox" value="true" name="Completed" @(item.IsComplete ? "checked" : string.Empty) />
+                    <input name="Id" value="@item.Id" type="hidden"/>
+                    <input name="CategoryId" value="@Model.CategoryId" type="hidden" />
+                    <input type="submit" value="Update" class="btn btn-sm"/>
+                </form>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a asp-controller="Tasks" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                |
+                <a asp-controller="Tasks" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

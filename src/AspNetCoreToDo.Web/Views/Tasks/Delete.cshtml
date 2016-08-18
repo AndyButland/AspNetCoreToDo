@@ -1,0 +1,23 @@
+﻿@model AspNetCoreToDo.Web.ViewModels.Tasks.TasksDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete Task";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form asp-controller="Tasks" asp-action="Delete" method="post" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <p>Are you sure you wish to delete the task <strong>@Model.Description</strong>?</p>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Delete" class="btn btn-danger"/>
+                <a asp-controller="Tasks" asp-action="Index" class="btn btn-secondary" role="button">Cancel</a>
+            </div>
+        </div>
+        <input asp-for="Id" value="@Model.Id" type="hidden" />
+    </div>
+</form>
