@@ -14,7 +14,7 @@
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=.\SQLEXPRESS2012;Database=AspNetCoreToDo;Trusted_Connection=True;";
+            var connection = @"Server=.\SQLEXPRESS2014;Database=AspNetCoreToDo;Trusted_Connection=True;";
             services.AddDbContext<ToDoContext>(options => options.UseSqlServer(connection));
 
             services.AddSession();
